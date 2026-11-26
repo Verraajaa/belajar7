@@ -18,9 +18,6 @@ body {
   text-align: left;
   margin: 10px;
 }
-.form-group label{
-  
-}
 .form-group input, textarea, button {
   width: 100%;
   padding: 8px;
@@ -32,4 +29,24 @@ button {
   background: #db2777;
   color: white;
   border: 1px solid #ffbbda;
+}
+.data {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  width: 90%;
+  max-width: 1000px;
+}
+.data-card{
+  background: #db2777;
+  color: white;
+  padding: 10px 30px;
+  margin: 10px;
+  text-align: left;
+  border-radius: 10px;
+  width: 100%;
+  box-sizing: border-box;
+}
+.error{
+  color: rgb(208, 0, 0);
 }

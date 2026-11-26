@@ -18,11 +18,12 @@ function UseForm() {
         setLoading(true);
         setSuccess(false);
         setError("")
-
+        
         try {
             await new Promise((resolve) => setTimeout(resolve, 2000));
-
+            
             console.log(data);
+            setSubmittedData((prevData) => [...prevData, data]);
             setSuccess(true);
             reset();
         } catch (err) {
@@ -31,10 +32,11 @@ function UseForm() {
             setLoading(false);
         }
     }
-
+    
     const [loading, setLoading] = useState(false);
     const [success, setSuccess] = useState(false);
     const [error, setError] = useState("");
+    const [submittedData, setSubmittedData] = useState([]);
     return(
         <div className="container">
             <h1>User Data Form</h1>
@@ -45,22 +47,30 @@ function UseForm() {
                     <div className="form-group">
                         <label>Nama Lengkap</label>
                         <input type="text" placeholder="Masukkan nama lengkap..." {...register("nama")}/>
-                        {errors.nama && <p>{errors.nama.message}</p>}
+                        <div className="error">
+                            {errors.nama && <p>{errors.nama.message}</p>}
+                        </div>
                     </div>
                     <div className="form-group">
                         <label>Email</label>
                         <input type="email" placeholder="Masukkan email..." {...register("email")} />
-                        {errors.email && <p>{errors.email.message}</p>}
+                        <div className="error">
+                            {errors.email && <p>{errors.email.message}</p>}
+                        </div>
                     </div>
                     <div className="form-group">
                         <label>Umur</label>
                         <input type="number" placeholder="Masukkan umur..." {...register("umur", {valueAsNumber: true})} />
-                        {errors.umur && <p>{errors.umur.message}</p>}
+                        <div className="error">
+                            {errors.umur && <p>{errors.umur.message}</p>}
+                        </div>
                     </div>
                     <div className="form-group">
                         <label>Alamat</label>
                         <textarea placeholder="Masukkan alamat lengkap" {...register("alamat")} />
-                        {errors.alamat && <p>{errors.alamat.message}</p>}
+                        <div className="error">
+                            {errors.alamat && <p>{errors.alamat.message}</p>}
+                        </div>
                     </div>
 
                     <button type="submit" disabled={loading}>
@@ -72,6 +82,23 @@ function UseForm() {
                     {error && <p>{error}</p>}
                 </form>
             </div>
+
+            {submittedData && (
+                < div className="data">
+
+                    {submittedData.map((user, index) => (
+                    <div className="data-card">
+                        <h3>Data ke-{index + 1}</h3>
+
+                        <p>Nama : {user.nama}</p>
+                        <p>Email : {user.email}</p>
+                        <p>Umur : {user.umur}</p>
+                        <p>Alamat : {user.alamat}</p>
+                    </div>
+
+                    ))}
+                </div>
+            )}
         </div>
     );
 }
